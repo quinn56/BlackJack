@@ -15,6 +15,8 @@ Player::Player() {
 	this->hands_pushed = 0;
 	this->match_dealer = 0;
 	this->ace_count = 0;
+	this->biggest_win = 0;
+	this->biggest_match = 0;
 }
 
 void Player::make_bet(int bet_amount) {
@@ -110,3 +112,20 @@ void Player::inc_hands_pushed() {
 std::vector<Card*> Player::get_hand() {
 	return this->hand;
 }
+
+void Player::set_biggest_win(int win) {
+	this->biggest_win = win;
+}
+
+int Player::get_biggest_win() {
+	return this->biggest_win;
+}
+
+void Player::set_biggest_match(int match) {
+	this->biggest_match = match;
+}
+
+int Player::get_biggest_match() {
+	return this->biggest_match;
+}
+

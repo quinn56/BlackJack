@@ -43,7 +43,9 @@ void display_stats(Player* p) {
 			<< "\nHands Played: " << p->get_hands_played()
 			<< "\nHands Won: " << p->get_hands_won()
 			<< "\nHands Lost: " << p->get_hands_lost()
-			<< "Hands Pushed: " << p->get_hands_pushed()
+			<< "\nHands Pushed: " << p->get_hands_pushed()
+			<< "\nBiggest Win: " << p->get_biggest_win()
+			<< "\nBiggest Match: " << p->get_biggest_match()
 			<< std::endl;
 }
 
@@ -109,10 +111,14 @@ void check_match_dealer(Player* player, Dealer* dealer) {
 	if (match == 1) {
 		display_number_match_message(player->get_match_dealer());
 		player->add_cash(player->get_match_dealer() * 4);
+		if ((player->get_match_dealer() * 4) > player->get_biggest_match())
+			player->set_biggest_match(player->get_match_dealer() * 4);
 	}
 	else {
 		display_suited_match_message(player->get_match_dealer());
 		player->add_cash(player->get_match_dealer() * 14);
+		if ((player->get_match_dealer() * 14) > player->get_biggest_match())
+					player->set_biggest_match(player->get_match_dealer() * 14);
 	}
 }
 
@@ -144,6 +150,8 @@ void handle_round(Dealer* dealer, Player* player, int bet, int match) {
 		dealer->print_peek();
 		display_blackjack_message(bet);
 		player->add_cash(bet * 2.5);
+		if ((bet*2.5) > player->get_biggest_win())
+			player->set_biggest_win(bet*2.5);
 		player->inc_hands_won();
 		dealer->clear_hand();
 		player->clear_hand();
@@ -204,6 +212,8 @@ void handle_round(Dealer* dealer, Player* player, int bet, int match) {
 		display_bust_message(dealer, bet);
 		player->inc_hands_won();
 		player->add_cash(bet * 2);
+		if ((bet*2) > player->get_biggest_win())
+			player->set_biggest_win(bet*2);
 	}
 	else if (player->get_hand_total() == dealer->get_hand_total()) {
 		display_push_message();
@@ -213,6 +223,8 @@ void handle_round(Dealer* dealer, Player* player, int bet, int match) {
 	else if(player->get_hand_total() > dealer->get_hand_total()) {
 		display_win_message(bet);
 		player->inc_hands_won();
+		if ((bet*2) > player->get_biggest_win())
+			player->set_biggest_win(bet*2);
 		player->add_cash(bet * 2);
 	}
 	else {

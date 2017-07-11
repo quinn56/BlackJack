@@ -20,6 +20,8 @@ int hands_lost;
 int hands_pushed;
 int ace_count;
 int match_dealer;
+int biggest_win;
+int biggest_match;
 std::vector<Card*> hand;
 
 public:
@@ -42,6 +44,10 @@ public:
 	void inc_hands_won();
 	void inc_hands_lost();
 	void inc_hands_pushed();
+	int get_biggest_win();
+	void set_biggest_win(int win);
+	int get_biggest_match();
+	void set_biggest_match(int match);
 	std::vector<Card*> get_hand();
 
 };
