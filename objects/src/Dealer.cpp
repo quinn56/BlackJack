@@ -77,8 +77,6 @@ void Dealer::hit(Player * p) {
 
 void Dealer::hit() {
 	std::cout <<"\nDealer hits on " << this->get_hand_total() << "..." << std::endl;
-	std::cin.ignore();
-	std::cin.ignore();
 	this->hand.push_back(deal_card());
 }
 

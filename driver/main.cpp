@@ -6,7 +6,7 @@
 #include "../objects/inc/Deck.h"
 #include "../objects/inc/Player.h"
 
-#define NUMBER_MATCH 1
+#define MATCH 1
 #define SUITED_MATCH 2
 
 void display_welcome() {
@@ -96,7 +96,7 @@ int max(int card1, int card2) {
 }
 
 void check_match_dealer(Player* player, Dealer* dealer) {
-	std::cout << "Checking match dealer..." << std::endl;
+	std::cout << "Checking match the dealer..." << std::endl;
 	int card1 = player->get_hand().at(0)->compare(dealer->get_hand().at(0));
 	int card2 = player->get_hand().at(1)->compare(dealer->get_hand().at(0));
 
@@ -108,13 +108,13 @@ void check_match_dealer(Player* player, Dealer* dealer) {
 	else {
 		match = max(card1, card2);
 	}
-	if (match == 1) {
+	if (match == MATCH) {
 		display_number_match_message(player->get_match_dealer());
 		player->add_cash(player->get_match_dealer() * 4);
 		if ((player->get_match_dealer() * 4) > player->get_biggest_match())
 			player->set_biggest_match(player->get_match_dealer() * 4);
 	}
-	else {
+	else if (match == SUITED_MATCH){
 		display_suited_match_message(player->get_match_dealer());
 		player->add_cash(player->get_match_dealer() * 14);
 		if ((player->get_match_dealer() * 14) > player->get_biggest_match())
@@ -240,8 +240,6 @@ int main() {
 
 	Dealer* dealer = new Dealer();
 	Player* player = new Player();
-
-	std::string play = "n";
 
 	display_welcome();
 	std::cin.ignore();
