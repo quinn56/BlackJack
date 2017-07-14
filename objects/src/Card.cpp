@@ -26,31 +26,31 @@ Card::Card(Card* c) {
 
 int Card::get_number_val(char c) {
 	switch (c) {
-		case '2':
+		case TWO:
 			return 2;
-		case '3':
+		case THREE:
 			return 3;
-		case '4':
+		case FOUR:
 			return 4;
-		case '5':
+		case FIVE:
 			return 5;
-		case '6':
+		case SIX:
 			return 6;
-		case '7':
+		case SEVEN:
 			return 7;
-		case '8':
+		case EIGHT:
 			return 8;
-		case '9':
+		case NINE:
 			return 9;
-		case '0':
+		case TEN:
 			return 10;
-		case 'J':
+		case JACK:
 			return 10;
-		case 'Q':
+		case QUEEN:
 			return 10;
-		case 'K':
+		case KING:
 			return 10;
-		case 'A':
+		case ACE:
 			return 11;
 		default:
 			return 0;
@@ -67,15 +67,15 @@ void Card::print_card() {
 std::string Card::get_suit(Suits s) {
 	switch (s) {
 		case HEARTS:
-			return std::string("Hearts");
+			return std::string(HEARTS_STRING);
 		case SPADES:
-			return std::string("Spades");
+			return std::string(SPADES_STRING);
 		case CLUBS:
-			return std::string("Clubs");
+			return std::string(CLUBS_STRING);
 		case DIAMONDS:
-			return std::string("Diamonds");
+			return std::string(DIAMONDS_STRING);
 		default:
-			return std::string("None");
+			return std::string(NONE_STRING);
 	}
 }
 

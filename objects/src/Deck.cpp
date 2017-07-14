@@ -10,43 +10,43 @@ Deck::Deck() {
 		char c;
 		switch (i) {
 			case 1:
-				c = 'A';
+				c = ACE;
 				break;
 			case 2:
-				c = '2';
+				c = TWO;
 				break;
 			case 3:
-				c = '3';
+				c = THREE;
 				break;
 			case 4:
-				c = '4';
+				c = FOUR;
 				break;
 			case 5:
-				c = '5';
+				c = FIVE;
 				break;
 			case 6:
-				c = '6';
+				c = SIX;
 				break;
 			case 7:
-				c = '7';
+				c = SEVEN;
 				break;
 			case 8:
-				c = '8';
+				c = EIGHT;
 				break;
 			case 9:
-				c = '9';
+				c = NINE;
 				break;
 			case 10:
-				c = '0';
+				c = TEN;
 				break;
 			case 11:
-				c = 'J';
+				c = JACK;
 				break;
 			case 12:
-				c = 'Q';
+				c = QUEEN;
 				break;
 			case 13:
-				c = 'K';
+				c = KING;
 				break;
 		}
 		for (int j = 0; j < 4; j++) {
