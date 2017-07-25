@@ -13,6 +13,7 @@ Player::Player() {
 	this->hands_played = 0;
 	this->hands_won = 0;
 	this->hands_pushed = 0;
+	this->hands_surrendered = 0;
 	this->match_dealer = 0;
 	this->ace_count = 0;
 	this->biggest_win = 0;
@@ -52,6 +53,10 @@ int Player::get_hands_lost() {
 
 int Player::get_hands_pushed() {
 	return this->hands_pushed;
+}
+
+int Player::get_hands_surrendered() {
+	return this->hands_surrendered;
 }
 
 int Player::get_cash() {
@@ -107,6 +112,10 @@ void Player::inc_hands_lost() {
 
 void Player::inc_hands_pushed() {
 	this->hands_pushed++;
+}
+
+void Player::inc_hands_surrendered() {
+	this->hands_surrendered++;
 }
 
 std::vector<Card*> Player::get_hand() {

@@ -44,6 +44,7 @@ void display_stats(Player* p) {
 			<< "\nHands Won: " << p->get_hands_won()
 			<< "\nHands Lost: " << p->get_hands_lost()
 			<< "\nHands Pushed: " << p->get_hands_pushed()
+			<< "\nHands Surrendered: " << p->get_hands_surrendered()
 			<< "\nBiggest Win: " << p->get_biggest_win()
 			<< "\nBiggest Match: " << p->get_biggest_match()
 			<< std::endl;
@@ -56,7 +57,7 @@ void display_hand_totals(Dealer* d, Player* p) {
 }
 
 void display_hand_query() {
-	std::cout << "Hit, stand, or double down? (h/s/d): ";
+	std::cout << "Hit, stand, double down, or surrender? (h/s/d/f): ";
 }
 
 void display_bust_message(Player* p) {
@@ -81,6 +82,10 @@ void display_push_message() {
 
 void display_lose_message(int bet) {
 	std::cout << "Player loses $" << bet << std::endl;
+}
+
+void display_surrender_message(int bet) {
+	std::cout << "Player surrenders. Loses $" << bet / 2 << std::endl;
 }
 
 void display_number_match_message(int match) {
@@ -143,7 +148,8 @@ void handle_round(Dealer* dealer, Player* player, int bet, int match) {
 	bool hit = false;
 	bool stand = false;
 	bool double_down = false;
-	std::string hit_stand_double;
+	bool surrender = false;
+	std::string hand_status;
 
 	if (player->get_hand_total() == 21) {
 		player->print_hand();
@@ -164,16 +170,29 @@ void handle_round(Dealer* dealer, Player* player, int bet, int match) {
 		display_hand_totals(dealer, player);
 
 		display_hand_query();
-		std::cin >> hit_stand_double;
-		if (hit_stand_double.compare("h") == 0)
+		std::cin >> hand_status;
+		if (hand_status.compare("h") == 0)
 			hit = true;
-		else if (hit_stand_double.compare("s") == 0)
+		else if (hand_status.compare("s") == 0)
 			stand = true;
-		else if (hit_stand_double.compare("d") == 0)
+		else if (hand_status.compare("d") == 0)
 			double_down = true;
+		else if (hand_status.compare("f") == 0)
+			surrender = true;
+
+		if (surrender) {
+			display_surrender_message(bet);
+			player->inc_hands_surrendered();
+			player->add_cash((bet/2) + 1);
+			dealer->clear_hand();
+			player->clear_hand();
+			return;
+		}
+
 		if (hit) {
 			dealer->hit(player);
 		}
+
 		if (double_down) {
 			player->make_bet(player->get_bet());
 			dealer->hit(player);
@@ -257,6 +276,8 @@ int main() {
 		display_cash(player);
 		display_bet_message();
 		std::cin >> bet;
+		if (bet < 0)
+			break;
 		display_match_dealer_message();
 		std::cin >> match;
 

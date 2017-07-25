@@ -18,6 +18,7 @@ int hands_won;
 int hands_played;
 int hands_lost;
 int hands_pushed;
+int hands_surrendered;
 int ace_count;
 int match_dealer;
 int biggest_win;
@@ -34,6 +35,7 @@ public:
 	int get_hands_won();
 	int get_hands_lost();
 	int get_hands_pushed();
+	int get_hands_surrendered();
 	int get_cash();
 	int get_bet();
 	int get_match_dealer();
@@ -44,6 +46,7 @@ public:
 	void inc_hands_won();
 	void inc_hands_lost();
 	void inc_hands_pushed();
+	void inc_hands_surrendered();
 	int get_biggest_win();
 	void set_biggest_win(int win);
 	int get_biggest_match();
