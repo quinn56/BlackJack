@@ -96,6 +96,18 @@ void display_suited_match_message(int match) {
 	std::cout << "SUITED MATCH! Pays 14:1. Player wins $" << match * 14 << std::endl;
 }
 
+void display_insurance_prompt() {
+	std::cout << "Dealer is showing ACE. Insurance? (y/n): " << std::endl;
+}
+
+void display_insurance_win(int bet) {
+	std::cout << "Dealer has 21. Player wins " << bet << " on insurance.";
+}
+
+void display_insurance_lose(int bet) {
+	std::cout << "Dealer does not have 21. Player loses " << bet << " on insurance.";
+}
+
 int max(int card1, int card2) {
 	return card1 > card2 ? card1 : card2;
 }
@@ -162,6 +174,30 @@ void handle_round(Dealer* dealer, Player* player, int bet, int match) {
 		dealer->clear_hand();
 		player->clear_hand();
 		return;
+	}
+
+	Card* show = dealer->get_hand().at(0);
+	char show_val = show->get_value();
+
+	if (show->get_number_val(show_val) == 11) {
+		display_insurance_prompt();
+		std::string insurance;
+		std::cin >> insurance;
+		if (insurance.compare("y") == 0) {
+			int insurance_bet = (bet / 2) + 1;
+			player->add_cash(insurance_bet * -1);
+			if (dealer->get_hand_total() == 21) {
+				int insurance_win = bet * 3;
+				player->add_cash(insurance_win);
+				display_insurance_win(insurance_win);
+				display_lose_message(bet);
+				player->inc_hands_lost();
+				dealer->clear_hand();
+				player->clear_hand();
+				return;
+			}
+			display_insurance_lose(insurance_bet);
+		}
 	}
 
 	while (player->get_hand_total() < 21 && stand == false) {
