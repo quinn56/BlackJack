@@ -180,6 +180,7 @@ void handle_round(Dealer* dealer, Player* player, int bet, int match) {
 	char show_val = show->get_value();
 
 	if (show->get_number_val(show_val) == 11) {
+		display_hand_totals(dealer, player);
 		display_insurance_prompt();
 		std::string insurance;
 		std::cin >> insurance;
