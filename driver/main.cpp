@@ -101,11 +101,11 @@ void display_insurance_prompt() {
 }
 
 void display_insurance_win(int bet) {
-	std::cout << "Dealer has 21. Player wins " << bet << " on insurance.";
+	std::cout << "Dealer has 21. Player wins $" << bet << " on insurance." << std::endl;
 }
 
 void display_insurance_lose(int bet) {
-	std::cout << "Dealer does not have 21. Player loses " << bet << " on insurance.";
+	std::cout << "Dealer does not have 21. Player loses $" << bet << " on insurance." << std::endl;
 }
 
 int max(int card1, int card2) {
@@ -188,7 +188,7 @@ void handle_round(Dealer* dealer, Player* player, int bet, int match) {
 			int insurance_bet = (bet / 2) + 1;
 			player->add_cash(insurance_bet * -1);
 			if (dealer->get_hand_total() == 21) {
-				int insurance_win = bet * 3;
+				int insurance_win = insurance_bet * 3;
 				player->add_cash(insurance_win);
 				display_insurance_win(insurance_win);
 				display_lose_message(bet);
